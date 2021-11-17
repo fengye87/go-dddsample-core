@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+metadata:
+  name: go-dddsample-core
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+    - image: cargo
+      docker:
+        dockerfile: cargo/Dockerfile
+deploy:
+  kubectl:
+    manifests:
+      - cargo/deploy.yaml

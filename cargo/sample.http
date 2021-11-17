@@ -1,0 +1,74 @@
+###
+POST http://localhost:8080/booking/ HTTP/1.1
+content-type: application/json
+
+{
+    "origin_unlocode": "CNHKG",
+    "destination_unlocode": "USNYC",
+    "arrival_deadline": "2008-10-24T00:00:00Z"
+}
+
+###
+GET http://localhost:8080/booking/1 HTTP/1.1
+
+###
+GET http://localhost:8080/booking/1/select_itinerary HTTP/1.1
+
+###
+POST http://localhost:8080/booking/1/assign_itinerary HTTP/1.1
+content-type: application/json
+
+{
+    "legs": [
+        {
+            "voyage_number": "0100S",
+            "from_unlocode": "CNHKG",
+            "to_unlocode": "CNHGH",
+            "from_time": "2008-10-01T12:00:00Z",
+            "to_time": "2008-10-03T14:30:00Z"
+        },
+        {
+            "voyage_number": "0100S",
+            "from_unlocode": "CNHGH",
+            "to_unlocode": "JNTKO",
+            "from_time": "2008-10-03T21:00:00Z",
+            "to_time": "2008-10-06T06:15:00Z"
+        },
+        {
+            "voyage_number": "0100S",
+            "from_unlocode": "JNTKO",
+            "to_unlocode": "AUMEL",
+            "from_time": "2008-10-06T11:00:00Z",
+            "to_time": "2008-10-12T11:30:00Z"
+        },
+        {
+            "voyage_number": "0100S",
+            "from_unlocode": "AUMEL",
+            "to_unlocode": "USNYC",
+            "from_time": "2008-10-14T12:00:00Z",
+            "to_time": "2008-10-23T23:10:00Z"
+        }
+    ]
+}
+
+###
+GET http://localhost:8080/booking/1 HTTP/1.1
+
+###
+GET http://localhost:8080/booking/1/pick_new_destination HTTP/1.1
+
+###
+POST http://localhost:8080/booking/1/change_destination?unlocode=AUMEL HTTP/1.1
+
+###
+POST http://localhost:8080/handling/submit_report HTTP/1.1
+content-type: application/json
+
+{
+    "completion_time": "2008-09-30T10:00:00Z",
+    "tracking_ids": ["1"],
+    "type": "Receive"
+}
+
+###
+GET http://localhost:8080/tracking/?tracking_id=1 HTTP/1.1

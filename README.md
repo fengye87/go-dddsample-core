@@ -1,0 +1,1 @@
+# go-dddsample-core

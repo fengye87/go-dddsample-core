@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cargo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: cargo
+  template:
+    metadata:
+      labels:
+        name: cargo
+    spec:
+      containers:
+        - name: cargo
+          image: cargo
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cargo
+spec:
+  selector:
+    name: cargo
+  ports:
+    - port: 80
+      targetPort: http
